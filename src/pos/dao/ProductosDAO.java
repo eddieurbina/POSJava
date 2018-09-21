@@ -2,9 +2,11 @@
 package pos.dao;
 
 import java.net.ConnectException;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import pos.vo.ProductosVo;
 
 public class ProductosDAO extends ConexionSQLite {
@@ -35,5 +37,32 @@ public class ProductosDAO extends ConexionSQLite {
                 + "VALUES ('"+ newProduct.getNombre() + "', '" + newProduct.getModelo() + "','" + newProduct.getPrecio() + "' ,"
                 + "'" + newProduct.getCategory() + "', "
                 + "'" + newProduct.getStock() + "');";
+        PreparedStatement ps = getConexion().prepareStatement(query);
+
+        ps.executeUpdate();
+        conexion.close();
+    }
+    
+      public ArrayList<ProductosVo> getListaProductos() throws SQLException, ConnectException {
+        ArrayList<ProductosVo> listaProductos = new ArrayList<>();
+        String query = "SELECT `nombre`, `modelo`, `precio`, `category`, `stock` FROM `productos` ORDER BY `nombre`; ";
+        Statement st;
+        st = getConexion().createStatement();
+        ResultSet rs = st.executeQuery(query);
+
+        while (rs.next()) {
+            ProductosVo productosvo = new ProductosVo();
+            productosvo.setNombre(rs.getString("nombre"));
+            productosvo.setModelo(rs.getString("modelo"));
+            productosvo.setPrecio(rs.getDouble("precio"));
+            productosvo.setCategory(rs.getString("category"));
+            productosvo.setStock(rs.getInt("stock"));
+            listaProductos.add(productosvo);
+        }
+
+        st.close();
+        rs.close();
+        conexion.close();
+        return listaProductos;
     }
 }
