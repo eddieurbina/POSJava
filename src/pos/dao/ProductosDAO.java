@@ -45,7 +45,7 @@ public class ProductosDAO extends ConexionSQLite {
     
       public ArrayList<ProductosVo> getListaProductos() throws SQLException, ConnectException {
         ArrayList<ProductosVo> listaProductos = new ArrayList<>();
-        String query = "SELECT `nombre`, `modelo`, `precio`, `category`, `stock` FROM `productos` ORDER BY `nombre`; ";
+        String query = "SELECT `nombre`, `modelo`, `precio`, `category`, `stock` FROM `productos`; ";
         Statement st;
         st = getConexion().createStatement();
         ResultSet rs = st.executeQuery(query);
@@ -65,4 +65,7 @@ public class ProductosDAO extends ConexionSQLite {
         conexion.close();
         return listaProductos;
     }
+
+      
+    
 }

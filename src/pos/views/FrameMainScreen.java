@@ -22,16 +22,6 @@ public class FrameMainScreen extends javax.swing.JFrame {
     //Acceso a datos, el que recibe y maneja desde y hacia la base de datos. 
     UsuariosDAO usuariosDAO = new UsuariosDAO();
     ProductosDAO productosDAO = new ProductosDAO();
-//    public void cargarLista() {
-//        ArrayList<String> usuariosParaLista = usuariosDAO.getUsuarioLista();
-//        usuariosParaLista.toArray();
-//        listUserNames.setModel(new javax.swing.AbstractListModel<String>() {
-//            
-//    //        String[] strings = usuariosParaLista.toArray();
-//            public int getSize() { return strings.length; }
-//            public String getElementAt(int i) { return strings[i]; }
-//        });
-//    }
 
     public FrameMainScreen() {
         initComponents();
@@ -79,11 +69,6 @@ public class FrameMainScreen extends javax.swing.JFrame {
 
             }
             
-            DefaultRowSorter sorter = (DefaultRowSorter)tblProducts.getRowSorter();
-            ArrayList list = new ArrayList();
-            list.add(new RowSorter.SortKey(0, SortOrder.ASCENDING));
-            sorter.setSortKeys(list);
-            sorter.sort();
         } catch (SQLException ex) {
             Logger.getLogger(FrameMainScreen.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ConnectException ex) {
@@ -135,9 +120,16 @@ public class FrameMainScreen extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        Sale.setBackground(new java.awt.Color(102, 102, 102));
+
         btnSearch.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/searchButton.png"))); // NOI18N
         btnSearch.setText("Search");
         btnSearch.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        btnSearch.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSearchActionPerformed(evt);
+            }
+        });
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -480,6 +472,10 @@ public class FrameMainScreen extends javax.swing.JFrame {
 
 
     }//GEN-LAST:event_btnAddProductActionPerformed
+
+    private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
+        
+    }//GEN-LAST:event_btnSearchActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
